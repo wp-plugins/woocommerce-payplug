@@ -1,0 +1,177 @@
+# Copyright (C) 2013 WooCommerce PayPlug
+# This file is distributed under the same license as the WooCommerce PayPlug package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce PayPlug 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-payplug\n"
+"POT-Creation-Date: 2013-11-05 01:32:32+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-11-09 18:30+0100\n"
+"Last-Translator: boris colombier <contact@wba.fr>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: woocommerce-payplug.php:19
+msgid ""
+"WooCommerce PayPlug Gateway depends on the last version of <a href=\"http://"
+"wordpress.org/extend/plugins/woocommerce/\">WooCommerce</a> to work!"
+msgstr ""
+"La passerelle de paiement PayPlug pour WooCommerce nécessite la dernière "
+"version de <a href=\"http://wordpress.org/extend/plugins/woocommerce/"
+"\">WooCommerce</a> to work!"
+
+#: woocommerce-payplug.php:75 woocommerce-payplug.php:143
+#: woocommerce-payplug.php:170
+msgid "PayPlug"
+msgstr "PayPlug"
+
+#: woocommerce-payplug.php:144
+msgid ""
+"PayPlug works by sending the user to PayPlug to enter their payment "
+"information."
+msgstr ""
+"PayPlug permet aux utilisateurs de payer avec leur carte bancaire via une "
+"interface sécurisé"
+
+#: woocommerce-payplug.php:160
+msgid "Enable/Disable"
+msgstr "Activer / Désactiver"
+
+#: woocommerce-payplug.php:162
+msgid "Enable PayPlug"
+msgstr "Activer PayPlug"
+
+#: woocommerce-payplug.php:163
+msgid "NB : This gateway is disabled if the currency is not in euros."
+msgstr ""
+"NB : Cette passerelle de paiement ne peut être active que si la devise de la "
+"boutique est en euros."
+
+#: woocommerce-payplug.php:167
+msgid "Title"
+msgstr "Titre"
+
+#: woocommerce-payplug.php:169
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+"Ce champ permet de définir le titre que verra l'utilisateur lors du paiement."
+
+#: woocommerce-payplug.php:173
+msgid "Description"
+msgstr "Description"
+
+#: woocommerce-payplug.php:175
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+"Ce champ permet de définir la description que verra l'utilisteur lors du "
+"paiement."
+
+#: woocommerce-payplug.php:176
+msgid "Pay safely via PayPlug with your credit card"
+msgstr "Payer avec votre carte bancaire en toute sécurité via PayPlug"
+
+#: woocommerce-payplug.php:179
+msgid "Application parameters"
+msgstr "Paramètres de la page de configuration de PayPlug"
+
+#: woocommerce-payplug.php:181
+msgid "Please paste your PayPlug parameters."
+msgstr "Veuillez coller vos paramètres PayPlug dans ce champ."
+
+#: woocommerce-payplug.php:181
+msgid ""
+"You can to get this information in : %sPayPlug Account Configuration%s with "
+"your email and password."
+msgstr ""
+"Vous pouvez obtenir ces informations sur %svotre page de Configuration "
+"PayPlug%s en utilisant votre email et votre mot de passe PayPlug"
+
+#: woocommerce-payplug.php:185
+msgid "Gateway Testing"
+msgstr "Test de la passerelle"
+
+#: woocommerce-payplug.php:190
+msgid "Debug Log"
+msgstr "Log de debug"
+
+#: woocommerce-payplug.php:192
+msgid "Enable logging"
+msgstr "Activer les logs"
+
+#: woocommerce-payplug.php:194
+msgid "Log PayPlug events inside <code>woocommerce/logs/payplug.txt</code>"
+msgstr ""
+"Les logs PayPlug se trouvent dans <code>woocommerce/logs/payplug.txt</code>"
+
+#: woocommerce-payplug.php:249
+msgid "Awaiting Payplug payment"
+msgstr "En attente du paiement PayPlug"
+
+#: woocommerce-payplug.php:359
+msgid "Payment is successfully completed."
+msgstr "Paiement complété avec succès"
+
+#: woocommerce-payplug.php:369
+msgid "Payment %s refunded via IPN by PayPlug."
+msgstr "Paiement remboursé via IPN par PayPlug"
+
+#: woocommerce-payplug.php:372
+msgid "Order refunded/reversed"
+msgstr ""
+
+#: woocommerce-payplug.php:373
+msgid "Order %s has been marked as refunded via IPN by PayPlug"
+msgstr "La Commande %s a été remboursée via IPN par PayPlug"
+
+#: woocommerce-payplug.php:375
+msgid "Payment for order %s refunded/reversed"
+msgstr "Payment for order %s refunded/reversed"
+
+#: woocommerce-payplug.php:388
+msgid ""
+"<strong>Gateway Disabled</strong> You should inform your parameters in "
+"PayPlug. %sClick here to configure!%s"
+msgstr ""
+"<strong>Passerelle désactivée</strong> Vous devez indiquer vos paramètres "
+"PayPlug. %sCliquez ici pour la configuration!%s"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce PayPlug"
+msgstr "WooCommerce PayPlug"
+
+#. Description of the plugin/theme
+msgid "WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce"
+msgstr ""
+"WooCommerce PayPlug est une passerelle de paiement via PayPlug pour "
+"WooCommerce"
+
+#. Author of the plugin/theme
+msgid "Boris Colombier"
+msgstr "Boris Colombier"
+
+#. Author URI of the plugin/theme
+msgid "http://wba.fr/"
+msgstr "http://wba.fr/"
+
+msgid "Checking PayPlug parameters..."
+msgstr "Vérification des paramètres PayPlug..."
+
+msgid "An error occurred during connection to PayPlug."
+msgstr "Une erreur s'est produite durant la connexion avec PayPlug."
+
+msgid "Please check your PayPlug login and password."
+msgstr "Merci de vérifier votre identifiant et votre mot de passe PayPlug"
+
+msgid "PayPlug account login"
+msgstr "Identifiant PayPlug"
+
+msgid "The email used to create your account on payplug."
+msgstr "L'adresse email utilisée pour vous identifier sur PayPlug"
+
+msgid "PayPlug account password"
+msgstr "Mot de passe PayPlug"
+
+msgid "The password used to create your account on payplug."
+msgstr "Le mot de passe utilisé pour vous identifier sur PayPlug"
