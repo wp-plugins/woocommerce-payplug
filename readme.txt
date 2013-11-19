@@ -8,7 +8,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Accept all credit cards directly on your WooCommerce site via this secure WooCommerce gateway.
+Accept all credit cards with PayPlug on your WooCommerce site via this secure WooCommerce gateway.
 
 == Description ==
 
