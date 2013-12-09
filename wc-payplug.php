@@ -167,7 +167,7 @@ function wcpayplug_gateway_load() {
                 <p>
                     <b>2,5% par transaction</b>, sans frais fixes ou mensuels.<br/>Votre client n'a pas besoin de compte pour payer.
                 </p>
-                <p><a href="https://www.payplug.fr/inscription/11" target="_blank" class="button button-primary">Créer un compte gratuitement</a>
+                <p><a href="http://url.wba.fr/payplug" target="_blank" class="button button-primary">Créer un compte gratuitement</a>
                     <a href="https://www.payplug.fr/" target="_blank" class="button">En savoir plus sur PayPlug</a>
                 </p>
             </div>
