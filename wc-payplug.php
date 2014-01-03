@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.0.1
+ * Version: 1.2
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -460,7 +460,7 @@ function payplug_parse_request($wp) {
         //die(print_r($_POST));
         
         $process = curl_init('https://www.payplug.fr/portal/ecommerce/autoconfig');
-        curl_setopt($process, CURLOPT_USERPWD, sanitize_text_field($_POST["login"]).':'.sanitize_text_field($_POST["password"]));
+        curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.$_POST["password"]);
         curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($process, CURLOPT_SSLVERSION, 3);
         $answer = curl_exec($process);

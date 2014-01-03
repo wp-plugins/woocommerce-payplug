@@ -22,7 +22,7 @@ Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 1. Install the plugin via FTP or the Wordpress manager
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Woocommerce settings and to the Payment Gateways tab
-4. Click on PayPlug and set yout PayPlug login and password
+4. Click on PayPlug and set your PayPlug login and password
 5. Done!
 
 
@@ -32,6 +32,9 @@ Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 2. Public view
 
 == Changelog ==
+
+= 1.2 =
+* Fix authentication problem
 
 = 1.1 =
 * Fix jQuery problem
