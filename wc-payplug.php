@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.2
+ * Version: 1.3
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -121,9 +121,6 @@ function wcpayplug_gateway_load() {
                 add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
             }
 
-            // Valid for use.
-            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->parameters ) && $this->is_valid_for_use();
-
             // Checking if payplug_login and payplug_password is not empty.
             if ( empty( $this->payplug_login ) || empty( $this->payplug_password ) ) {
                 add_action( 'admin_notices', array( &$this, 'parameters_missing_message' ) );
@@ -156,9 +153,14 @@ function wcpayplug_gateway_load() {
             <?php if ( empty( $this->parameters ) ) : ?>
             <style>
             #wc_get_started.payplug{
+                padding: 10px;
                 padding-left: 230px;
                 background-image: url(<?php echo plugins_url( 'images/payplug-logo-large.png' , __FILE__ )?>);
-                background-position: 20px 40%
+                background-position: 20px 40%;
+                background-repeat: no-repeat;
+                background-color: white;
+                margin-top: 10px;
+                border-radius: 5px;
             }
             </style>
             <div id="wc_get_started" class="payplug">

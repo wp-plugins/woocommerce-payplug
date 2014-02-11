@@ -3,8 +3,8 @@ Contributors: BorisColombier
 Donate link: http://wba.fr/
 Tags: WooCommerce, Payment, Gateway, Credit Cards, Shopping Cart, PayPlug, Extension
 Requires at least: 3.0.1
-Tested up to: 3.8
-Stable tag: 1.1
+Tested up to: 3.8.1
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 2. Public view
 
 == Changelog ==
+
+= 1.3 =
+* Fix for woocommerce 2.1
 
 = 1.2 =
 * Fix authentication problem
