@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.3
+ * Version: 1.3.1
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -440,7 +440,7 @@ function wcpayplug_gateway_load() {
          */
         public function parameters_missing_message() {
             $html = '<div class="error">';
-                $html .= '<p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your parameters in PayPlug. %sClick here to configure!%s', 'wcpayplug' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&amp;tab=payment_gateways&amp;section=WC_Gateway_Payplug">', '</a>' ) . '</p>';
+                $html .= '<p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your parameters in PayPlug. %sClick here to configure!%s', 'wcpayplug' ), '<a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=checkout&section=wc_gateway_payplug">', '</a>' ) . '</p>';
             $html .= '</div>';
 
             echo $html;
