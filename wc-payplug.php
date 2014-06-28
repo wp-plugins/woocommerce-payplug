@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.3.1
+ * Version: 1.3.2
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -115,19 +115,19 @@ function wcpayplug_gateway_load() {
             add_action( 'valid_payplug_ipn_request', array( &$this, 'successful_request' ) );
             add_action( 'woocommerce_receipt_payplug', array( &$this, 'receipt_page' ) );
 
-            if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) ) {
+            if (version_compare(WOOCOMMERCE_VERSION, '2.0.0', '>=')){
                 add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
-            } else {
+            }else{
                 add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
             }
 
             // Checking if payplug_login and payplug_password is not empty.
-            if ( empty( $this->payplug_login ) || empty( $this->payplug_password ) ) {
-                add_action( 'admin_notices', array( &$this, 'parameters_missing_message' ) );
+            if (empty($this->payplug_login) || empty($this->payplug_password)){
+                add_action( 'admin_notices', array( &$this, 'parameters_missing_message'));
             }
 
             // Active logs.
-            if ( 'yes' == $this->debug ) {
+            if ('yes' == $this->debug){
                 $this->log = $woocommerce->logger();
             }
         }
@@ -136,7 +136,6 @@ function wcpayplug_gateway_load() {
          * Checking if this gateway is enabled.
          */
         public function is_valid_for_use() {
-
             if ( ! in_array( get_woocommerce_currency(), array('EUR') ) ) {
                 return false;
             }
@@ -180,8 +179,7 @@ function wcpayplug_gateway_load() {
                 <?php $this->generate_settings_html(); ?>
             </table> <!-- /.form-table -->
             <?php
-            global $woocommerce;
-            $woocommerce->add_inline_js('
+            wc_enqueue_js('
                 jQuery(\'input[type="submit"]\').click(function(e){
                 e.preventDefault();
                 jQuery(window).block({
@@ -205,7 +203,7 @@ function wcpayplug_gateway_load() {
                         position:       "fixed"
                     }
                 });
-                jQuery.post( "'.get_home_url().'/?payplug=parameters", { login: jQuery("input[name=\'woocommerce_payplug_payplug_login\']").val(), password: jQuery("input[name=\'woocommerce_payplug_payplug_password\']").val() })
+                jQuery.post( "'.site_url().'/?payplug=parameters", { login: jQuery("input[name=\'woocommerce_payplug_payplug_login\']").val(), password: jQuery("input[name=\'woocommerce_payplug_payplug_password\']").val() })
                     .done(function( data ) {
                         if(data == "errorconnexion"){
                             jQuery(window).unblock();
@@ -217,6 +215,10 @@ function wcpayplug_gateway_load() {
                             jQuery("input[name=\'woocommerce_payplug_payplug_parameters\']").val(data);
                             jQuery("#mainform").submit();
                         }
+                })
+                .fail(function() {
+                    jQuery(window).unblock();
+                    alert("Une erreur est survenue. Merci de nous contacter sur http://wba.fr");
                 });
             })
             ');
@@ -303,12 +305,8 @@ function wcpayplug_gateway_load() {
             $privatekey = openssl_pkey_get_private($this->payplug_privatekey);
             openssl_sign($url_params, $signature, $privatekey, OPENSSL_ALGO_SHA1);
             $signature = urlencode(base64_encode($signature));
-
             $payplug_url = $this->payplug_url ."?data=".$data."&sign=".$signature;
-            
-
             $payplug_url = apply_filters( 'woocommerce_payplug_args', $payplug_url );
-
             return $payplug_url;
         }
 
@@ -458,9 +456,7 @@ function wcpayplug_gateway_load() {
 */
 function payplug_parse_request($wp) {
     // only process requests with "my-plugin=ajax-handler"
-    if (array_key_exists('payplug', $wp->query_vars) && $wp->query_vars['payplug'] == 'parameters') {
-        //die(print_r($_POST));
-        
+    if (array_key_exists('payplug', $wp->query_vars) && $wp->query_vars['payplug'] == 'parameters') {        
         $process = curl_init('https://www.payplug.fr/portal/ecommerce/autoconfig');
         curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.$_POST["password"]);
         curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
@@ -479,7 +475,6 @@ function payplug_parse_request($wp) {
         }else{
             die("errorconnexion");
         }
-        
     }
 }
 add_action('parse_request', 'payplug_parse_request');
