@@ -2,25 +2,27 @@
 # This file is distributed under the same license as the WooCommerce PayPlug package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce PayPlug 1.0.0\n"
+"Project-Id-Version: WooCommerce PayPlug 1.3.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-payplug\n"
 "POT-Creation-Date: 2013-11-05 01:32:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-11-09 18:30+0100\n"
-"Last-Translator: boris colombier <contact@wba.fr>\n"
+"PO-Revision-Date: 2014-11-09 17:28+0100\n"
+"Last-Translator: Boris Colombier <bc@wba.fr>\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.10\n"
+"Language: fr_FR\n"
 
 #: woocommerce-payplug.php:19
 msgid ""
 "WooCommerce PayPlug Gateway depends on the last version of <a href=\"http://"
-"wordpress.org/extend/plugins/woocommerce/\">WooCommerce</a> to work!"
+"wordpress.org/extend/plugins/woocommerce/\" target=\"_blank\">WooCommerce</"
+"a> to work!"
 msgstr ""
 "La passerelle de paiement PayPlug pour WooCommerce nécessite la dernière "
-"version de <a href=\"http://wordpress.org/extend/plugins/woocommerce/"
-"\">WooCommerce</a> to work!"
+"version de <a href=\"http://wordpress.org/extend/plugins/woocommerce/\" "
+"target=\"_blank\">WooCommerce</a> pour fonctionner !"
 
 #: woocommerce-payplug.php:75 woocommerce-payplug.php:143
 #: woocommerce-payplug.php:170
@@ -101,9 +103,12 @@ msgid "Enable logging"
 msgstr "Activer les logs"
 
 #: woocommerce-payplug.php:194
-msgid "Log PayPlug events inside <code>woocommerce/logs/payplug.txt</code>"
+msgid ""
+"Log PayPlug events inside <code>wp-content/plugins/woocommerce/logs/payplug."
+"txt</code>"
 msgstr ""
-"Les logs PayPlug se trouvent dans <code>woocommerce/logs/payplug.txt</code>"
+"Les logs PayPlug se trouvent dans <code>wp-content/plugins/woocommerce/logs/"
+"payplug.txt</code>"
 
 #: woocommerce-payplug.php:249
 msgid "Awaiting Payplug payment"
@@ -119,7 +124,7 @@ msgstr "Paiement remboursé via IPN par PayPlug"
 
 #: woocommerce-payplug.php:372
 msgid "Order refunded/reversed"
-msgstr ""
+msgstr "Commande remboursée"
 
 #: woocommerce-payplug.php:373
 msgid "Order %s has been marked as refunded via IPN by PayPlug"
@@ -132,10 +137,10 @@ msgstr "Payment for order %s refunded/reversed"
 #: woocommerce-payplug.php:388
 msgid ""
 "<strong>Gateway Disabled</strong> You should inform your parameters in "
-"PayPlug. %sClick here to configure!%s"
+"PayPlug. %sClick here to configure%s"
 msgstr ""
 "<strong>Passerelle désactivée</strong> Vous devez indiquer vos paramètres "
-"PayPlug. %sCliquez ici pour la configuration!%s"
+"PayPlug. %sCliquez ici pour la configuration%s"
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce PayPlug"
@@ -173,5 +178,34 @@ msgstr "L'adresse email utilisée pour vous identifier sur PayPlug"
 msgid "PayPlug account password"
 msgstr "Mot de passe PayPlug"
 
-msgid "The password used to create your account on payplug."
-msgstr "Le mot de passe utilisé pour vous identifier sur PayPlug"
+msgid ""
+"The password used to create your account on payplug. This value is not "
+"stored."
+msgstr ""
+"Le mot de passe utilisé pour vous identifier sur PayPlug. Cette valeur n'est "
+"pas enregistrée."
+
+msgid ""
+"WooCommerce PayPlug Gateway requires <a href=\"http://php.net/manual/en/book."
+"curl.php\" target=\"_blank\">curl for php</a> to work!"
+msgstr ""
+"WooCommerce PayPlug nécessite <a href=\"http://php.net/manual/en/book.curl."
+"php\" target=\"_blank\">curl pour php</a> pour fonctionner !"
+
+msgid "PayPlug configuration"
+msgstr "Configuration PayPlug"
+
+msgid "Set order completed"
+msgstr "Marquer la commande comme 'terminée'"
+
+msgid "Set order as 'completed' after PayPlug payment instead of 'processing'"
+msgstr ""
+"Marquer la commande comme 'terminée' après la confirmation de paiement par "
+"PayPlug à la place de 'en cours'"
+
+msgid "Use test mode"
+msgstr "Utiliser le mode de test"
+
+msgid "Use the PayPlug gateway on test mode"
+msgstr ""
+"Utiliser PayPlug en mode 'test', les paiements ne seront pas effectués."
