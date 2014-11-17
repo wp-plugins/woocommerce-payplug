@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.4
+ * Version: 1.4.1
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -306,7 +306,7 @@ function wcpayplug_gateway_load() {
                     'title' => __('PayPlug configuration', 'wcpayplug'),
                     'type' => 'textarea',
                     'default' => '',
-                    'description' => __("Ce champ ne doit pas être utilisé sauf indication contraire en haut du formulaire. Il sera rempli automatiquement si vous vous n'avez pas d'erreur à l'enregistrement après avoir indiqué vos identifiant et mot de passe Payplug.<br>En cas de problème, utilisez le bouton 'Obtenir de l'aide' en haut de la page.", 'wcpayplug'),
+                    'description' => __("Ce champ ne doit pas être utilisé sauf indication contraire en haut du formulaire. Il sera rempli automatiquement si vous n'avez pas d'erreur à l'enregistrement après avoir indiqué vos identifiant et mot de passe Payplug.<br>En cas de problème, utilisez le bouton 'Obtenir de l'aide' en haut de la page.", 'wcpayplug'),
                     'class' => 'bipbip',
                 )
             );
@@ -480,8 +480,8 @@ function payplug_parse_request($wp) {
     if (array_key_exists('payplug', $wp->query_vars) && $wp->query_vars['payplug'] == 'parameters') {
         $process = curl_init('https://www.payplug.fr/portal/ecommerce/autoconfig');
         curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.stripslashes($_POST["password"]));
-        curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($process, CURLOPT_SSLVERSION, 3);
+        curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($process, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         $answer = curl_exec($process);
         $errorCurl = curl_errno($process);
         curl_close($process);
