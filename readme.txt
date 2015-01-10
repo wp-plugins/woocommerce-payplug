@@ -15,6 +15,8 @@ Accept all credit cards with PayPlug on your WooCommerce site via this secure Wo
 [PayPlug](https://www.payplug.fr/ "PayPlug") is a very low cost payment solution for businesses based in Europe.
 Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 
+For further informations visit https://wba.fr/woocommerce-payplug/
+
 
 == Installation ==
 
@@ -22,8 +24,8 @@ Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 1. Install the plugin via FTP or the Wordpress manager
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Woocommerce settings and to the Payment Gateways tab
-4. Click on PayPlug and set your PayPlug login and password
-5. Done!
+4. Create a [free PayPlug account](http://url.wba.fr/payplug/ "free PayPlug account")
+5. Click on PayPlug and set your PayPlug login and password
 
 
 == Screenshots ==
