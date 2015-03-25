@@ -5,7 +5,7 @@
  * Description: WooCommerce PayPlug is a PayPlug payment gateway for WooCommerce
  * Author: Boris Colombier
  * Author URI: http://wba.fr
- * Version: 1.4.1
+ * Version: 1.4.2
  * License: GPLv2 or later
  * Text Domain: wcpayplug
  * Domain Path: /languages/
@@ -77,7 +77,7 @@ function wcpayplug_gateway_load() {
          */
         public function __construct() {
             global $woocommerce;
-
+            
             $this->id                  = 'payplug';
             $this->icon                = plugins_url( 'images/payplug.png', __FILE__ );
             $this->has_fields          = false;
@@ -100,10 +100,9 @@ function wcpayplug_gateway_load() {
             $this->parameters           = json_decode(rawurldecode($this->settings['payplug_parameters']), true);
             $this->payplug_privatekey   = $this->parameters['yourPrivateKey'];
             $this->payplug_url          = $this->parameters['url'];
+
             $this->payplug_publickey    = $this->parameters['payplugPublicKey'];
             
-            $this->debug                = $this->settings['debug'];
-
             // Actions.
             add_action( 'woocommerce_api_wc_gateway_payplug', array($this, 'check_ipn_response'));
             add_action( 'valid_payplug_ipn_request', array( &$this, 'successful_request' ) );
@@ -113,15 +112,6 @@ function wcpayplug_gateway_load() {
                 add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
             }else{
                 add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
-            }
-
-            // Active logs.
-            if ('yes' == $this->debug){
-                if(version_compare(WOOCOMMERCE_VERSION, '2.1', '>=')){
-                    $this->log = new WC_Logger();
-                }else{
-                    $this->log = $woocommerce->logger();
-                }
             }
         }
 
@@ -155,16 +145,46 @@ function wcpayplug_gateway_load() {
                 padding: 5px 15px;
                 border-radius: 5px;
             }
+            .wp-core-ui .button{
+                width: 210px;
+                text-align: center;
+                margin-right: 4px;
+            }
+            .bt_hld{
+                display: inline-block;
+                vertical-align: top;
+            }
+            .rmt_infos, .rmt_infos a{
+                display: inline-block;
+                vertical-align: top;
+                margin: 0;
+                color: #a46497;
+                text-decoration: none;
+            }
+            .rmt_infos a:hover{
+                text-decoration: underline;
+            }
             </style>
             <div id="wc_get_started" class="payplug">
-                <span>Intégrez le paiement en ligne sur votre site en 1 minute.</span>
-                <b>2,5% par transaction</b>, sans frais fixes ni mensuels.<br/>Votre client n'a pas besoin de compte pour payer.
-                <p>
-                    <a href="http://url.wba.fr/payplug" target="_blank" class="button button-primary">Créer un compte gratuitement</a>
-                    <a href="https://www.payplug.fr/" target="_blank" class="button">En savoir plus sur PayPlug</a>
-                    <a href="http://wba.fr/woocommerce-payplug/#referencement" target="_blank" class="button">Référencer mon site</a>
-                    <a href="http://wba.fr/woocommerce-payplug/#support" target="_blank" class="button button-primary">Obtenir de l'aide</a>
-                </p>
+                <span>Intégrez le paiement en ligne par carte bancaire sur votre site en 1 minute.</span>
+                <br/><b>Sans frais fixes ni mensuels.</b> Votre client n'a pas besoin de compte pour payer.
+                <br>
+                <div class="bt_hld">
+                    <p>
+                        <a href="http://url.wba.fr/payplug" target="_blank" class="button button-primary">Créer un compte gratuitement</a>
+                        <a href="https://www.payplug.fr/" target="_blank" class="button">En savoir plus sur PayPlug</a>
+                    </p>
+                    <p>
+                        <a href="http://wba.fr/woocommerce-payplug/#referencement" target="_blank" class="button">Référencer mon site</a>
+                        <a href="https://wba.fr/woocommerce-payplug/support/" target="_blank" class="button">Obtenir de l'aide</a>
+                    </p>
+                </div>
+                <br>
+                <div class="rmt_infos">
+                    <a href="https://www.woosuperemails.com/fr/?utm_source=wc_p_plugin&utm_medium=wp&utm_campaign=wc_p" target="_blank">
+                        Vous souhaitez améliorer vos ventes facilement avec WooCommerce ?
+                    </a>
+                </div>
             </div>
             <?php
             if(!function_exists('curl_version')){
@@ -216,7 +236,9 @@ function wcpayplug_gateway_load() {
                     }
                     jQuery("#mainform").submit();
                 }else{
-                    jQuery.post( "'.site_url().'/?payplug=parameters", { login: jQuery("input[name=\'woocommerce_payplug_payplug_login\']").val(), password: jQuery("input[name=\'woocommerce_payplug_payplug_password\']").val() })
+                    console.log(jQuery("input[name=\'woocommerce_payplug_test_mode\']").is(\':checked\'));
+                    console.log(typeof jQuery("input[name=\'woocommerce_payplug_test_mode\']").is(\':checked\'));
+                    jQuery.post( "'.site_url().'/?payplug=parameters", { login: jQuery("input[name=\'woocommerce_payplug_payplug_login\']").val(), password: jQuery("input[name=\'woocommerce_payplug_payplug_password\']").val(), test_mode: jQuery("input[name=\'woocommerce_payplug_test_mode\']").is(\':checked\')})
                     .done(function(data) {
                         if(data == "errorconnexion"){
                             jQuery(window).unblock();
@@ -295,12 +317,12 @@ function wcpayplug_gateway_load() {
                     'label' => __("Set order as 'completed' after PayPlug payment instead of 'processing'", 'wcpayplug'),
                     'default' => 'no',
                 ),
-                'debug' => array(
-                    'title' => __( 'Debug Log', 'wcpayplug' ),
+                'test_mode' => array(
+                    'title' => __( 'Mode test', 'wcpayplug' ),
                     'type' => 'checkbox',
-                    'label' => __( 'Enable logging', 'wcpayplug' ),
+                    'label' => __( 'Utiliser PayPlug en TEST (Sandbox) Mode', 'wcpayplug' ),
                     'default' => 'no',
-                    'description' => __('Log PayPlug events inside <code>wp-content/plugins/woocommerce/logs/payplug.txt</code>', 'wcpayplug'),
+                    'description' => __('Utilisez le mode test pour tester les transactions sans faire de paiement réel', 'wcpayplug'),
                 ),
                 'payplug_parameters' => array(
                     'title' => __('PayPlug configuration', 'wcpayplug'),
@@ -319,9 +341,6 @@ function wcpayplug_gateway_load() {
             $order = new WC_Order( $order_id );
             $order_id = $order->id;
 
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'Generating payment form for order ' . $order->get_order_number() . '. Notify URL: ' . $this->notify_url );
-
             $params = array(
                     'amount'        => number_format($order->order_total, 2, '.', '')*100,
                     'currency'      => get_woocommerce_currency(),
@@ -333,6 +352,7 @@ function wcpayplug_gateway_load() {
                     'order'         => $order->id
                 );
             $url_params = http_build_query($params);
+            
             $data = urlencode(base64_encode($url_params));
             $privatekey = openssl_pkey_get_private($this->payplug_privatekey);
             openssl_sign($url_params, $signature, $privatekey, OPENSSL_ALGO_SHA1);
@@ -346,8 +366,6 @@ function wcpayplug_gateway_load() {
          * Process the payment and return the result.
          */
         public function process_payment( $order_id ) {
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'process_payment function');
             global $woocommerce;
             $payplug_adr = $this->get_payplug_url($order_id);
             return array(
@@ -360,8 +378,6 @@ function wcpayplug_gateway_load() {
          * Output for the order received page.
          */
         public function receipt_page( $order ) {
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'receipt_page function');
             echo $this->generate_payplug_form( $order );
         }
 
@@ -370,18 +386,15 @@ function wcpayplug_gateway_load() {
          * Check ipn validation.
          */
         public function check_ipn_request_is_valid($headers, $body) {
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'check_ipn_request_is_valid function');
 
             $signature = base64_decode($headers['PAYPLUG-SIGNATURE']);
             
             $publicKey = openssl_pkey_get_public($this->payplug_publickey);
             $isValid = openssl_verify($body , $signature, $publicKey, OPENSSL_ALGO_SHA1);
             if($isValid){
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'payplug', 'check_ipn_request_is_valid YES isValid');
                 return True;
             }
+            return False;
         }
 
         /**
@@ -392,24 +405,14 @@ function wcpayplug_gateway_load() {
             $headers = array_change_key_case($headers, CASE_UPPER);
             $body = file_get_contents('php://input');
             $data = json_decode($body, true);
-            if ( 'yes' == $this->debug ){
-                $this->log->add( 'payplug', 'check_ipn_response : '.print_r($headers, true));
-                $this->log->add( 'payplug', 'check_ipn_response body : '.print_r($body, true));
-            }
             
             @ob_clean();
 
             if (!empty($headers) && !empty($body) && $this->check_ipn_request_is_valid($headers, $body)){
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'payplug', 'check_ipn_response YES check_ipn_request_is_valid');
                 header( 'HTTP/1.1 200 OK' );
-
                 do_action( "valid_payplug_ipn_request", $data);
-
             } else {
-
                 wp_die( "PayPlug IPN Request Failure" );
-
             }
         }
 
@@ -418,22 +421,16 @@ function wcpayplug_gateway_load() {
          * Successful Payment!
          */
         public function successful_request( $posted ) {
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'check_ipn_response : '.print_r($posted, true));
-            
             global $woocommerce;
 
             $order_id = $posted['order'];
-            $posted_status = $posted['status'];
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'payplug', 'successful_request retour status : '.$posted_status);
+            $posted_status = $posted['state'];
 
             $order = new WC_Order($order_id);
 
 
-            if($posted_status == '0'){
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'payplug', 'successful_request on passe en completed');
+            if($posted_status == 'paid'){
+
                 // Check order not already completed
                 if ($order->status == 'completed'){
                     exit;
@@ -450,11 +447,7 @@ function wcpayplug_gateway_load() {
                 exit;
             }
 
-            if($posted_status == '4'){
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'payplug', 'successful_request on passe en refund');
-                // Payment refunded
-                
+            if($posted_status == 'refunded'){
                 $order->update_status( 'refunded', sprintf( __( 'Payment %s refunded via IPN by PayPlug.', 'wcpayplug' ), strtolower( $posted['payment_status'] ) ) );
                 $mailer = $woocommerce->mailer();
                 $message = $mailer->wrap_message(
@@ -478,7 +471,12 @@ function wcpayplug_gateway_load() {
 function payplug_parse_request($wp) {
     // only process requests with "my-plugin=ajax-handler"
     if (array_key_exists('payplug', $wp->query_vars) && $wp->query_vars['payplug'] == 'parameters') {
-        $process = curl_init('https://www.payplug.fr/portal/ecommerce/autoconfig');
+        if ( $_POST["test_mode"] == 'true' ) {
+            $url = 'https://www.payplug.fr/portal/test/ecommerce/autoconfig';
+        } else {
+            $url = 'https://www.payplug.fr/portal/ecommerce/autoconfig';
+        }
+        $process = curl_init($url);
         curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.stripslashes($_POST["password"]));
         curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($process, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
