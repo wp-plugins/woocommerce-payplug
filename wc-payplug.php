@@ -479,7 +479,7 @@ function payplug_parse_request($wp) {
         $process = curl_init($url);
         curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.stripslashes($_POST["password"]));
         curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($process, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+        @curl_setopt($process, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         $answer = curl_exec($process);
         $errorCurl = curl_errno($process);
         curl_close($process);

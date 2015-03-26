@@ -32,6 +32,9 @@ Woocommerce PayPlug is the payment gateway for Woocommerce validated by PayPlug.
 
 == Changelog ==
 
+= 1.4.3 =
+* Fix error if CURL_SSLVERSION_TLSv1 is an undefined constant on the server and server display PHP notices
+
 = 1.4.2 =
 * Add TEST (Sandbox) Mode
 * delete settings on uninstall
