@@ -1,0 +1,44 @@
+#wc_get_started.payplug{
+    padding: 10px;
+    padding-left: 230px;
+    background-image: url('../images/payplug-logo-large.png');
+    background-position: 20px 40%;
+    background-repeat: no-repeat;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#wc_get_started.payplug .wp-core-ui .button{
+    width: 210px;
+    text-align: center;
+    margin-right: 4px;
+}
+#wc_get_started.payplug .bt_hld{
+    display: inline-block;
+    vertical-align: top;
+}
+#wc_get_started.payplug .rmt_infos, .rmt_infos a{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    color: #a46497;
+    text-decoration: none;
+}
+#wc_get_started.payplug .rmt_infos a:hover{
+    text-decoration: underline;
+}
+#wc_get_started.payplug h3{
+    margin: 0;
+    margin-top: 5px;
+    color: rgb(240, 122, 15);
+}
+#wc_get_started.payplug h4>a{
+    text-decoration: none;
+    color: #7CA600;
+    text-transform: uppercase;
+}
+#wc_get_started.payplug h4>a:hover{
+    text-decoration: underline;
+}
