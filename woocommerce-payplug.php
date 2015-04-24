@@ -148,11 +148,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 wp_enqueue_style( 'wcpayplugStylesheet', plugins_url('assets/css/payplug.css', __FILE__) );
                 ?>
                 <div id="wc_get_started" class="payplug">
-                    <?php _e( "<span>Add online payment by bank card to your website in a matter of clicks.</span><br/><b>No fixed monthly fees.</b> No customer account required to make a payment.<br>" , 'woocommerce-payplug' ); ?>
+                    <?php _e( "<span>Ajouter le paiement par carte sur votre boutique en quelques clics.</span><br/>" , 'woocommerce-payplug' ); ?>
                     <div class="bt_hld">
                         <p>
                             <a href="http://url.wba.fr/payplug" target="_blank" class="button"><?php _e( "Create a free account" , 'woocommerce-payplug' ); ?></a>
-                            <a href="https://www.payplug.fr/" target="_blank" class="button"><?php _e( "Find out more about PayPlug" , 'woocommerce-payplug' ); ?></a>
+                            <a href="https://www.payplug.fr/" target="_blank" class="button"><?php _e( "En savoir plus sur PayPlug" , 'woocommerce-payplug' ); ?></a>
                         </p>
                     </div>
                     <h3>Cette version permet d'utiliser PayPlug en mode TEST seulement</h3>
@@ -185,31 +185,31 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         'title' => __( 'Enable/Disable', 'woocommerce-payplug' ),
                         'type' => 'checkbox',
                         'label' => __( 'Enable PayPlug', 'woocommerce-payplug' ),
-                        'description' => __( 'NB: This payment gateway can only be enabled if the currency used by the store is the euro.', 'woocommerce-payplug' ),
+                        'description' => __( 'NB: La devise de votre boutique doit être l\'euro €.', 'woocommerce-payplug' ),
                         'default' => 'yes'
                     ),
                     'title' => array(
                         'title' => __( 'Title', 'woocommerce-payplug' ),
                         'type' => 'text',
-                        'description' => __( 'This field defines the title seen by the user upon payment.', 'woocommerce-payplug' ),
+                        'description' => __( 'Le titre de la méthode de paiement que voient vos visiteurs.', 'woocommerce-payplug' ),
                         'default' => __( 'PayPlug', 'woocommerce-payplug' )
                     ),
                     'description' => array(
                         'title' => __( 'Description', 'woocommerce-payplug' ),
                         'type' => 'textarea',
-                        'description' => __( 'This field defines the description seen by the user upon payment.', 'woocommerce-payplug' ),
-                        'default' => __( 'Make secure payments using your bank card with PayPlug.', 'woocommerce-payplug' )
+                        'description' => __( 'La description affichée pour vos visiteurs.', 'woocommerce-payplug' ),
+                        'default' => __( 'Payez par carte en toute sécurité avec PayPlug.', 'woocommerce-payplug' )
                     ),
                     'payplug_login' => array(
                         'title' => __( 'PayPlug login', 'woocommerce-payplug' ),
                         'type' => 'text',
-                        'description' => __( 'The email address used to log on to PayPlug.', 'woocommerce-payplug' ),
+                        'description' => __( 'L\'email utilisé pour vous inscrire sur PayPlug.', 'woocommerce-payplug' ),
                         'default' => ''
                     ),
                     'payplug_password' => array(
                         'title' => __( 'PayPlug password', 'woocommerce-payplug' ),
                         'type' => 'password',
-                        'description' => __( 'The password used to log on to PayPlug. This information is not saved.', 'woocommerce-payplug' ),
+                        'description' => __( 'Votre mot de passe PayPlug. Cette information n\'est pas enregistrée.', 'woocommerce-payplug' ),
                         'default' => ''
                     ),
                     'payplug_parameters' => array(
@@ -352,26 +352,22 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     *
     */
     function payplug_parse_request($wp) {
-        if (array_key_exists('payplug', $wp->query_vars) && $wp->query_vars['payplug'] == 'parameters') {
-            $url = 'https://www.payplug.fr/portal/test/ecommerce/autoconfig';
-            $process = curl_init($url);
-            curl_setopt($process, CURLOPT_USERPWD, $_POST["login"].':'.stripslashes($_POST["password"]));
-            curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-            @curl_setopt($process, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
-            $answer = curl_exec($process);
-            $errorCurl = curl_errno($process);
-            curl_close($process);
-            if($errorCurl == 0){
-                $jsonAnswer = json_decode($answer);
-                $authorizationSuccess = false;
-                if($jsonAnswer->status == 200){
-                    die($answer);
-                }else{
-                    die("errorlogin");
-                }
-            }else{
-                die("errorconnexion");
-            }
+        if ( array_key_exists( 'payplug', $wp->query_vars ) && ( $wp->query_vars['payplug'] == 'parameters' ) ) {
+           $url = 'https://www.payplug.fr/portal/test/ecommerce/autoconfig';
+           
+           $args = array(
+                'headers' => array(
+                    'Authorization' => 'Basic ' . base64_encode( $_POST["login"] . ':' . $_POST["password"] )
+               )
+           );
+           $answer = wp_remote_request( $url, $args );
+           $jsonAnswer = json_decode( $answer['body'] );
+           if( $jsonAnswer->status == 200 ) {
+               die($answer['body']);
+           } else {
+               die("errorlogin");
+           }
+           die();
         }
     }
     add_action('parse_request', 'payplug_parse_request');
